@@ -1,7 +1,9 @@
-pragma solidity ^0.7.4;
+// SPDX-License-Identifier: MIT
+pragma solidity >= 0.7.4;
 
 // Libreria util para manejar las fechas de los proyectos
-import 'https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/math/SafeMath.sol';
+//import 'https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/math/SafeMath.sol';
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 contract CrowdfundingEjercicio2 {
     using SafeMath for uint256;
