@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >= 0.7.4;
+pragma solidity >= 0.8;
 
 // Libreria util para manejar las fechas de los proyectos
 //import 'https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/math/SafeMath.sol';
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
-contract CrowdfundingEjercicio2 {
+contract CrowdfundingEjercicio {
     using SafeMath for uint256;
 
     // Array de proyectos
@@ -17,8 +17,8 @@ contract CrowdfundingEjercicio2 {
 
     //Funcion para crear proyectos
     function crearProjecto( string calldata titulo, string calldata descripcion, uint duracionEnDias, uint montoARecaudar) external {
-        uint recaudarHasta = now.add(duracionEnDias.mul(1 days));
-        Project nuevoProjecto = new Project(msg.sender, titulo, descripcion, recaudarHasta, montoARecaudar);
+        uint recaudarHasta = block.timestamp.add(duracionEnDias.mul(1 days));
+        Project nuevoProjecto = new Project(payable(msg.sender), titulo, descripcion, recaudarHasta, montoARecaudar);
         projects.push(nuevoProjecto);
         emit ProjectoEmpezado( address(nuevoProjecto), msg.sender, titulo, descripcion, recaudarHasta,montoARecaudar);
     }   
@@ -95,11 +95,11 @@ contract Project {
         if (balanceActual >= objetivo) {
             estado = Estado.Exitoso;
             payOut();
-        } else if (now > fechaLimite)  {
+        } else if (block.timestamp > fechaLimite)  {
             estado = Estado.Expirado;
         }
 
-        fechaCompletado = now;
+        fechaCompletado = block.timestamp;
     }
 
     function payOut() internal enEstado(Estado.Exitoso) returns (bool) {
