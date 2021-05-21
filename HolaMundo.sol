@@ -4,7 +4,7 @@ pragma solidity 0.8.1;
 contract HolaMundo {
     
     
-    string public saludo = "Hello World";
+    string public saludo = "Hola Mundo";
     
     function escribirSaludo (string memory _HelloWord) public {
         
